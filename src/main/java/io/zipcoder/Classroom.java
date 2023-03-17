@@ -1,15 +1,16 @@
 package io.zipcoder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import org.w3c.dom.ls.LSOutput;
+
+import java.util.*;
+
 public class Classroom {
 
     Student student = new Student(null, null, null);
 
     private Student[] students;
+
+    private TreeMap<String, Student[]> gradebook = new TreeMap<>();
 
     public Classroom(){
         students = new Student[30];
@@ -53,8 +54,22 @@ public class Classroom {
     }
 
     public  Student[] getStudentsByScore(){
-        Arrays.sort(students);
+        Arrays.sort(students, Collections.reverseOrder());
         return students;
     }
 
+    public TreeMap getGradebook(Student... s){
+        if(student.getAverageScore() > (0.90 * getClassAverage())){
+            gradebook.put("A", s);
+        } else if(student.getAverageScore() < (0.90 * getClassAverage()) && student.getAverageScore() > (0.70 * getClassAverage())){
+            gradebook.put("B", s);
+        } else if(student.getAverageScore() < (0.70 * getClassAverage()) && student.getAverageScore() > (0.50 * getClassAverage())){
+            gradebook.put("C", s);
+        } else if(student.getAverageScore() < (0.50 * getClassAverage()) && student.getAverageScore() > 0.10 * getClassAverage()){
+            gradebook.put("D", s);
+        } else if(student.getAverageScore() < (0.10 * getClassAverage())){
+            gradebook.put("F", s);
+        }
+        return gradebook;
+    }
 }
