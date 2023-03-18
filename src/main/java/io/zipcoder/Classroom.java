@@ -6,6 +6,7 @@ import java.util.*;
 
 public class Classroom {
 
+    Student student = new Student(null,null,null);
 
     private Student[] students;
 
@@ -25,7 +26,14 @@ public class Classroom {
 
 
     public String getStudents(){
-        return students.toString();
+        String result = new String();
+        StringBuilder build = new StringBuilder();
+
+        for(int i = 0; i < students.length; i++){
+            build.append(students[i].getFirstName() + " " + students[i].getLastName() + " " + students[i].getAverageScore() + "\n");
+            result = build.toString();
+        }
+        return result;
     }
 
     public Double getClassAverage(){
@@ -44,13 +52,19 @@ public class Classroom {
         }
     }
 
-    public void removeStudent(String firstName, String lastName){
+    public boolean removeStudent(String firstName, String lastName){
+        int count = 0;
         for(int i = 0; i < students.length; i++){
             if(students[i].equals( students[i].getFirstName().equals(firstName) && students[i].getLastName().equals(lastName))){
                 students[i] = null;
+                count++;
             }
-        }
+
+            }
+        if(students[count].equals(null)){
+    } return true;
     }
+
 
     public  Student[] getStudentsByScore(){
         Arrays.sort(students, Collections.reverseOrder());
